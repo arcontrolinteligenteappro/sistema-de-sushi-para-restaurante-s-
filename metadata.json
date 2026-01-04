@@ -1,0 +1,8 @@
+{
+  "name": "Copy of AR CONTROL, SUSHI EDITIONS",
+  "description": "A high-end multi-branch restaurant management system featuring POS, HR, Inventory control with grammage, Audit protection, and detailed financial reporting.",
+  "requestFramePermissions": [
+    "geolocation",
+    "camera"
+  ]
+}

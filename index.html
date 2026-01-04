@@ -1,0 +1,142 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>AR CONTROL | SUSHIMEX</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/js/all.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script>
+      tailwind.config = {
+        darkMode: 'class',
+        theme: {
+          extend: {
+            colors: {
+              nexus: {
+                dark: '#030508', 
+                panel: '#0B0E14',
+                primary: 'var(--nexus-primary)', 
+                secondary: 'var(--nexus-secondary)',
+                accent: 'var(--nexus-accent)',
+              }
+            },
+            animation: {
+                'slide-in-bottom': 'slide-in-bottom 0.7s cubic-bezier(0.250, 0.460, 0.450, 0.940) both',
+                'terminal-scanline': 'terminal-scanline 3s ease-in-out infinite',
+                'ken-burns': 'ken-burns-zoom 7s ease-out forwards',
+                'quantum-in': 'quantum-in 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both',
+            },
+            keyframes: {
+                'slide-in-bottom': {
+                    '0%': { transform: 'translateY(50px)', opacity: '0' },
+                    '100%': { transform: 'translateY(0)', opacity: '1' },
+                },
+                'terminal-scanline': {
+                    '0%': { transform: 'translateY(-100%)', opacity: '0' },
+                    '50%': { opacity: '0.3' },
+                    '100%': { transform: 'translateY(100%)', opacity: '0' },
+                },
+                'ken-burns-zoom': {
+                    '0%': { transform: 'scale(1.1) translate(0, 0)' },
+                    '100%': { transform: 'scale(1) translate(0, 0)' },
+                },
+                'quantum-in': {
+                    '0%': { opacity: '0', transform: 'scale(0.98) translateY(10px)' },
+                    '100%': { opacity: '1', transform: 'scale(1) translateY(0)' },
+                }
+            }
+          }
+        }
+      }
+    </script>
+    <style>
+        :root { 
+            --nexus-primary: #3B82F6; 
+            --nexus-primary-rgb: 59, 130, 246;
+            --nexus-secondary: #1D4ED8; 
+            --nexus-accent: #60A5FA; 
+        }
+        
+        @keyframes pulse-glow {
+            0%, 100% { box-shadow: 0 0 60px 20px rgba(var(--nexus-primary-rgb), 0); }
+            50% { box-shadow: 0 0 100px 40px rgba(var(--nexus-primary-rgb), 0.3); }
+        }
+
+        #app-bg {
+            position: fixed;
+            inset: 0;
+            z-index: -1;
+            background-color: #030508;
+        }
+        #app-bg::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-color: rgba(241, 245, 249, 0.75); /* slate-100 @ 75% */
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            z-index: 2;
+        }
+        .dark #app-bg::before {
+            background-color: rgba(3, 5, 8, 0.8); /* nexus-dark @ 80% */
+        }
+
+        /* Light Mode Defaults */
+        body { font-family: 'Plus Jakarta Sans', sans-serif; overflow: hidden; color: #334155; font-size: 14px; }
+        .glass-panel {
+          backdrop-filter: blur(20px) saturate(160%);
+          -webkit-backdrop-filter: blur(20px) saturate(160%);
+          border: 1px solid rgba(0, 0, 0, 0.05);
+          background: rgba(255, 255, 255, 0.6);
+        }
+        .nexus-input {
+          background: rgba(226, 232, 240, 0.5); /* slate-200 */
+          border: 1px solid rgba(0, 0, 0, 0.1);
+          border-radius: 1rem;
+          padding: 0.75rem 1rem;
+          color: #0F172A; /* slate-900 */
+          font-size: 13px;
+        }
+        .nexus-input::placeholder {
+            color: #64748B; /* slate-500 */
+        }
+
+        /* Dark Mode Overrides */
+        .dark body { color: #94A3B8; } /* text-slate-400 */
+        .dark .glass-panel {
+          border: 1px solid rgba(255, 255, 255, 0.05);
+          background: rgba(17, 24, 39, 0.7); /* slate-900 with alpha */
+        }
+        .dark .nexus-input {
+          background: rgba(0, 0, 0, 0.4);
+          border: 1px solid rgba(255, 255, 255, 0.08);
+          color: #F1F5F9; /* slate-100 */
+        }
+        .dark .nexus-input::placeholder {
+            color: #475569; /* slate-600 */
+        }
+
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .custom-scroll::-webkit-scrollbar { width: 4px; }
+        .custom-scroll::-webkit-scrollbar-thumb { background: var(--nexus-primary); border-radius: 10px; }
+    </style>
+<script type="importmap">
+{
+  "imports": {
+    "react": "https://esm.sh/react@^19.2.3",
+    "react-dom": "https://esm.sh/react-dom@^19.2.3",
+    "react-dom/": "https://esm.sh/react-dom@^19.2.3/",
+    "react/": "https://esm.sh/react@^19.2.3/",
+    "recharts": "https://esm.sh/recharts@^3.6.0",
+    "@google/genai": "https://esm.sh/@google/genai"
+  }
+}
+</script>
+</head>
+<body class="h-screen w-screen">
+    <div id="app-bg"></div>
+    <div id="root"></div>
+</body>
+</html>
